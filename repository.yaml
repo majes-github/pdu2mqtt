@@ -1,4 +1,4 @@
 # https://developers.home-assistant.io/docs/add-ons/repository#repository-configuration
-name: Homeassistant Add-On repository for pdu2mqtt
+name: Home Assistant pdu2mqtt Add-ons Repository
 url: 'https://github.com/majes-github/pdu2mqtt'
 maintainer: Mathias Jeschke <mj@majes.de>
