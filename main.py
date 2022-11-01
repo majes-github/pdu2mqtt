@@ -4,6 +4,7 @@ import argparse
 import json
 import random
 import requests
+import sys
 import time
 import yaml
 import xml.etree.ElementTree as ET
@@ -19,15 +20,15 @@ MAX_PORTS = 8
 def parse_arguments():
     parser = argparse.ArgumentParser(
         description='Synchronize PDU state with MQTT')
-    parser.add_argument('--pdu', default='pdu',
+    parser.add_argument('--pdu-hostname', default='pdu',
                         help='pdu hostname')
-    parser.add_argument('-b', '--broker', default='mqtt',
+    parser.add_argument('--mqtt-hostname', default='homeassistant',
                         help='mqtt broker hostname')
-    parser.add_argument('--port', default=1883,
+    parser.add_argument('--mqtt-port', default=1883,
                         help='mqtt broker port')
-    parser.add_argument('-u', '--username',
+    parser.add_argument('--mqtt-user',
                         help='mqtt username')
-    parser.add_argument('-p', '--password',
+    parser.add_argument('--mqtt-password',
                         help='mqtt password')
     return parser.parse_args()
 
@@ -38,6 +39,7 @@ def connect_mqtt(broker, port, username, password):
             print('Connected to MQTT Broker!')
         else:
             print('Failed to connect, return code %d\n', rc)
+            sys.exit(1)
 
     client_id = f'python-mqtt-{random.randint(0, 1000)}'
     client = mqtt_client.Client(client_id)
@@ -170,12 +172,15 @@ def set_port_status(client, hostname, port, status):
 
 def main():
     args = parse_arguments()
-    client = connect_mqtt(args.broker, args.port, args.username, args.password)
+    client = connect_mqtt(args.mqtt_hostname,
+                          args.mqtt_port,
+                          args.mqtt_user,
+                          args.mqtt_password)
     register_device(client)
-    subscribe(client, args.pdu)
+    subscribe(client, args.pdu_hostname)
     client.loop_start()
     while True:
-        publish_port_status(client, args.pdu)
+        publish_port_status(client, args.pdu_hostname)
         time.sleep(30)
 
 
