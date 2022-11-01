@@ -1,0 +1,37 @@
+name: "pdu2mqtt"
+description: "Proxy state/actions between Intellinet Smart PDU 163682 web interface and MQTT"
+version: "1.0.0"
+slug: "pdu2mqtt"
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: before
+options:
+  pdu_hostname: "pdu"
+  mqtt_hostname: "core-mosquitto"
+  port1: "Port 1"
+  port2: "Port 2"
+  port3: "Port 3"
+  port4: "Port 4"
+  port5: "Port 5"
+  port6: "Port 6"
+  port7: "Port 7"
+  port8: "Port 8"
+schema:
+  pdu_hostname: str
+  mqtt_hostname: str
+  mqtt_port: "int?"
+  mqtt_user: "str?"
+  mqtt_password: "str?"
+  port1: str
+  port2: str
+  port3: str
+  port4: str
+  port5: str
+  port6: str
+  port7: str
+  port8: str

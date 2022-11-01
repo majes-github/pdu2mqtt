@@ -24,7 +24,7 @@ def parse_arguments():
         description='Synchronize PDU state with MQTT')
     parser.add_argument('--pdu-hostname', default='pdu',
                         help='pdu hostname')
-    parser.add_argument('--mqtt-hostname', default='homeassistant',
+    parser.add_argument('--mqtt-hostname', default='core-mosquitto',
                         help='mqtt broker hostname')
     parser.add_argument('--mqtt-port', default=1883,
                         help='mqtt broker port')
