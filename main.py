@@ -2,8 +2,10 @@
 
 import argparse
 import json
+import os
 import random
 import requests
+import signal
 import sys
 import time
 import yaml
@@ -38,8 +40,12 @@ def connect_mqtt(broker, port, username, password):
         if rc == 0:
             print('Connected to MQTT Broker!')
         else:
-            print('Failed to connect, return code %d\n', rc)
-            sys.exit(1)
+            detail = ''
+            if rc == 5:
+                detail = ' (wrong username/password)'
+            print('Failed to connect, return code {}{}'.format(rc, detail))
+            sys.stdout.flush()
+            os.kill(os.getpid(), signal.SIGTERM)
 
     client_id = f'python-mqtt-{random.randint(0, 1000)}'
     client = mqtt_client.Client(client_id)
