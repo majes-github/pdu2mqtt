@@ -10,7 +10,7 @@ WORKDIR /data
 
 # Copy data for add-on
 COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt --break-system-packages
 COPY main.py run.sh /
 RUN chmod a+x /run.sh
 

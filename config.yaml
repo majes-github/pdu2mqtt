@@ -1,6 +1,6 @@
 name: "pdu2mqtt"
 description: "Proxy state/actions between Intellinet Smart PDU 163682 web interface and MQTT"
-version: "1.0.0"
+version: "1.0.1"
 slug: "pdu2mqtt"
 init: false
 arch:
